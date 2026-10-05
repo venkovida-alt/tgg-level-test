@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Test — Tomorrow's Golden Generation</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --primary:#b8860b; --primary-dark:#9a7109; --accent:#2563eb;
+    --dark:#1e293b; --light:#fdf9ef; --gray:#64748b; --ok:#16a34a;
+    --gold:#d4af37; --gold-light:#f5e6a8; --gold-dark:#8b6f47;
+  }
+  body { font-family:'Myanmar Text','Pyidaungsu','Padauk','Segoe UI',sans-serif;
+         background:linear-gradient(135deg,#b8860b,#d4a017); min-height:100vh;
+         display:flex; align-items:center; justify-content:center; padding:24px; color:var(--dark); }
+  .card { background:#fff; border-radius:20px; max-width:640px; width:100%;
+          box-shadow:0 20px 60px rgba(0,0,0,.25); overflow:hidden; }
+  .card-header { background:linear-gradient(135deg,#b8860b,#d4a017); color:#fff; padding:24px 32px;
+                 display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .card-header h1 { font-size:1.4rem; margin-bottom:4px; }
+  .card-header p { opacity:.92; font-size:.88rem; line-height:1.6; }
+
+  .card-body { padding:32px; }
+  .progress-wrap { background:#f1f5f9; border-radius:20px; height:10px; margin-bottom:26px; overflow:hidden; }
+  .progress-bar { height:100%; background:linear-gradient(90deg,var(--primary),#f0c75e); width:0%;
+                  transition:width .35s ease; border-radius:20px; }
+  .q-meta { display:flex; justify-content:space-between; color:var(--gray); font-size:.85rem; margin-bottom:10px; }
+  .question { font-size:1.25rem; font-weight:600; margin:20px 0; line-height:1.7; }
+  .options { display:flex; flex-direction:column; gap:12px; }
+  .option { text-align:left; padding:14px 18px; border:2px solid #e2e8f0; border-radius:12px;
+            background:#fff; font-size:1.05rem; cursor:pointer; transition:all .15s; font-family:inherit; }
+  .option:hover:not(:disabled) { border-color:var(--primary); background:var(--light); }
+  .option.selected { border-color:var(--primary); background:#fef3c7; font-weight:600; }
+  .option:disabled { cursor:default; opacity:.65; }
+  .nav-btns { display:flex; justify-content:space-between; margin-top:26px; gap:12px; flex-wrap:wrap; }
+  .btn { padding:12px 26px; border-radius:10px; border:none; font-weight:600; font-size:1rem;
+         cursor:pointer; font-family:inherit; transition:all .2s; }
+  .btn-primary { background:var(--primary); color:#fff; }
+  .btn-primary:hover:not(:disabled) { background:var(--primary-dark); }
+  .btn-primary:disabled { background:#e2e8f0; color:#94a3b8; cursor:not-allowed; }
+  .btn-ghost { background:transparent; color:var(--gray); }
+  .btn-ghost:hover:not(:disabled) { color:var(--dark); }
+  .btn-ghost:disabled { opacity:0; cursor:default; }
+  .btn-pdf { background:var(--accent); color:#fff; }
+  .btn-pdf:hover { background:#1d4ed8; }
+  .btn-txt { background:#059669; color:#fff; }
+  .btn-txt:hover { background:#047857; }
+
+  /* =============================================================
+     ============  LUXURIOUS RESULT PAGE  =========================
+     ============================================================= */
+  .lux-wrap {
+    background: linear-gradient(180deg, #fefcf5 0%, #fdf8ec 100%);
+    border-radius: 24px;
+    padding: 8px;
+    box-shadow: 0 20px 60px rgba(184,134,11,.15);
+    margin-bottom: 24px;
+  }
+  .lux-frame {
+    border: 2px solid var(--gold);
+    border-radius: 18px;
+    padding: 8px;
+    position: relative;
+    background: linear-gradient(180deg, #fffef9, #fffbf0);
+  }
+  .lux-frame::before {
+    content:'';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(212,175,55,.4);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .lux-inner {
+    padding: 36px 24px 30px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .lux-ornament-top {
+    font-family: Georgia, serif;
+    color: var(--gold);
+    font-size: 1.4rem;
+    letter-spacing: 12px;
+    margin-bottom: 14px;
+    opacity: .8;
+  }
+  .level-label {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.82rem;
+    color: var(--gold-dark);
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge-lux {
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(135deg, #8b6f47 0%, #d4af37 25%, #f5e6a8 50%, #d4af37 75%, #8b6f47 100%);
+    color: #fffef9;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    padding: 26px 72px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    box-shadow:
+      0 18px 45px rgba(184,134,11,.55),
+      0 6px 15px rgba(184,134,11,.35),
+      inset 0 2px 6px rgba(255,255,255,.6),
+      inset 0 -3px 8px rgba(0,0,0,.25);
+    border: 3px solid #fff;
+    outline: 1px solid var(--gold);
+    outline-offset: 5px;
+    text-shadow: 2px 3px 10px rgba(0,0,0,.35);
+    line-height: 1.2;
+  }
+  .badge-lux::before, .badge-lux::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: rgba(255,255,255,.85);
+    text-shadow: 0 0 8px rgba(255,255,255,.6);
+  }
+  .badge-lux::before { left: 22px; }
+  .badge-lux::after  { right: 22px; }
+
+  .lux-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--gold);
+    margin: 4px 0 22px;
+    font-size: .9rem;
+  }
+  .lux-divider::before, .lux-divider::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .lux-summary {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.02rem;
+    color: #5a4a2f;
+    line-height: 1.85;
+    max-width: 480px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 26px 0;
+  }
+  .score-box {
+    background: linear-gradient(180deg, #fffef9, #fdf6e3);
+    border-radius: 14px;
+    padding: 18px 8px;
+    text-align: center;
+    border: 1.5px solid rgba(212,175,55,.5);
+    box-shadow: 0 6px 16px rgba(184,134,11,.1), inset 0 1px 0 rgba(255,255,255,.8);
+    transition: transform .2s;
+  }
+  .score-box b {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 1.45rem;
+    color: var(--gold-dark);
+    margin-bottom: 4px;
+    font-weight: 800;
+  }
+  .score-box span {
+    font-size: .78rem;
+    color: #8b6f47;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .reco {
+    background: linear-gradient(180deg, #fdfaf1, #fbf5e6);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(184,134,11,.08);
+  }
+  .reco h3 {
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .reco ul { margin-left: 4px; color: #4a3d24; list-style: none; }
+  .reco li {
+    margin-bottom: 10px;
+    line-height: 1.75;
+    padding-left: 4px;
+    font-size: .96rem;
+  }
+
+  .note {
+    background: linear-gradient(180deg, #fdfaf1, #fbf5e6);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: .92rem;
+    color: #6b5940;
+    margin-bottom: 22px;
+    line-height: 1.8;
+    border: 1px dashed rgba(212,175,55,.5);
+    font-style: italic;
+  }
+
+  .center { text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; align-items:center; }
+  .print-hint { font-size:0.8rem; color:#b91c1c; margin-top:8px; width:100%; }
+
+  .review { margin-top:10px; }
+  .review h3 {
+    font-family: Georgia, serif;
+    margin-bottom: 14px;
+    color: var(--gold-dark);
+    letter-spacing: 1px;
+  }
+  .rev-item {
+    border:1px solid rgba(212,175,55,.35);
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:10px;
+    font-size:.95rem;
+    background: linear-gradient(180deg, #fffefb, #fdfaf1);
+  }
+  .rev-item .ans-line { color:var(--gray); margin-top:4px; }
+  .ok { color:var(--ok); font-weight:700; }
+  .bad { color:#dc2626; font-weight:700; }
+
+  /* ===== Per-question timer ===== */
+  .q-timer-row { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .q-timer-icon { font-size:1rem; }
+  .q-timer-track { flex:1; height:9px; background:#e2e8f0; border-radius:9px; overflow:hidden; }
+  .q-timer-fill { height:100%; width:100%; border-radius:9px;
+                  background:linear-gradient(90deg,#16a34a,#22c55e);
+                  transition:width 1s linear, background .3s; }
+  .q-timer-fill.warn { background:linear-gradient(90deg,#ea580c,#f97316); }
+  .q-timer-fill.danger { background:linear-gradient(90deg,#dc2626,#ef4444); }
+  .q-timer-num { font-weight:800; font-size:.95rem; color:#16a34a;
+                 min-width:44px; text-align:right; font-variant-numeric:tabular-nums; }
+  .q-timer-num.warn { color:#ea580c; }
+  .q-timer-num.danger { color:#dc2626; animation:pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.65;} }
+
+  /* ===== PDF (print) sheet ===== */
+  .print-sheet { display:none; }
+  @media print {
+    @page { margin: 1.5cm; }
+    body { background:#fff; display:block; padding:0; }
+    .card { display:none; }
+    .print-sheet { display:block !important; color:#000; font-size:12pt; }
+  }
+  .ps-header { border-bottom:4px solid var(--primary); padding-bottom:14px; margin-bottom:20px; }
+  .ps-header h1 { color:var(--primary-dark); font-size:20pt; font-family: Georgia, serif; }
+  .ps-header .ps-sub { color:var(--gray); font-size:10pt; }
+  .ps-row { display:flex; justify-content:space-between; margin:6px 0; font-size:11pt; }
+  .ps-badge { text-align:center; margin:22px 0; }
+  .ps-badge .b { display:inline-block; background:#f5e6c4; color:#7a5b06; border:2px solid var(--primary);
+                 font-size:20pt; font-weight:900; padding:12px 40px; border-radius:40px; letter-spacing:2px;
+                 font-family: Georgia, serif; }
+  .ps-scores { width:100%; border-collapse:collapse; margin:14px 0; }
+  .ps-scores th, .ps-scores td { border:1px solid #cbd5e1; padding:8px 12px; text-align:center; font-size:11pt; }
+  .ps-scores th { background:#f5e6c4; }
+  .ps-reco { margin:16px 0; }
+  .ps-reco h2 { font-size:13pt; color:var(--primary-dark); margin-bottom:8px; font-family: Georgia, serif; }
+  .ps-reco ul { margin-left:22px; }
+  .ps-reco li { margin-bottom:5px; }
+  .ps-note { background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 16px; font-size:10.5pt; color:#475569; margin-top:16px; }
+  .ps-footer { margin-top:34px; border-top:1px solid #cbd5e1; padding-top:12px; font-size:9.5pt; color:#64748b; text-align:center; }
+
+  @media (max-width:560px) {
+    .card-body { padding:22px; }
+    .score-grid { grid-template-columns:repeat(2,1fr); }
+    .question { font-size:1.1rem; }
+    .card-header { flex-direction:column; align-items:flex-start; }
+    .badge-lux { font-size:2.2rem; padding:20px 44px; letter-spacing:4px; }
+    .badge-lux::before { left: 12px; font-size: 1rem; }
+    .badge-lux::after  { right: 12px; font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div>
+      <h1>📝 English Level Test</h1>
+    </div>
+  </div>
+  <div class="card-body" id="app"></div>
+</div>
+
+<!-- Print/PDF-only sheet (populated at result time) -->
+<div class="print-sheet" id="printSheet"></div>
+
+<script>
+const LEVELS = ['Starter','Elementary','Intermediate','Advanced'];
+const PER = 12;
+const PASS = 6;
+const QUESTION_SECONDS = 30;      // ⬅️ မေးခွန်းတစ်ခုလျှင် စက္ကန့်
+
+const BANK = [
+  // ============ STARTER ============
+  { level:0, q:'She ___ a teacher.', options:['is','are','am','be'], answer:0 },
+  { level:0, q:'I ___ rice every day.', options:['eat','eats','eating','ate'], answer:0 },
+  { level:0, q:'___ is your name?', options:['What','Where','Who','When'], answer:0 },
+  { level:0, q:'There ___ one book on the table.', options:['is','are','am','be'], answer:0 },
+  { level:0, q:'They ___ from Myanmar.', options:['is','are','am','be'], answer:1 },
+  { level:0, q:'He ___ to school by bus.', options:['go','goes','going','went'], answer:1 },
+  { level:0, q:'I ___ not like coffee.', options:['am','is','do','does'], answer:2 },
+  { level:0, q:'___ you speak English?', options:['Do','Are','Is','Can'], answer:3 },
+  { level:0, q:'The cat is ___ the box.', options:['in','on','at','of'], answer:0 },
+  { level:0, q:'I have ___ brothers.', options:['a','an','two','he'], answer:2 },
+  { level:0, q:"She gets up ___ 6 o'clock.", options:['in','on','at','by'], answer:2 },
+  { level:0, q:'This is ___ apple.', options:['a','an','the','two'], answer:1 },
+  { level:0, q:'My father ___ a new car.', options:['have','has','having','haves'], answer:1 },
+  { level:0, q:'We ___ students.', options:['is','are','am','be'], answer:1 },
+  { level:0, q:'___ is the weather today?', options:['How','Who','Where','Whose'], answer:0 },
+  { level:0, q:'Please ___ the door.', options:['open','opens','opening','opened'], answer:0 },
+
+  // ============ ELEMENTARY ============
+  { level:1, q:'I ___ to Yangon yesterday.', options:['go','goes','went','going'], answer:2 },
+  { level:1, q:'She ___ TV every evening.', options:['watch','watches','watching','watched'], answer:1 },
+  { level:1, q:'___ do you live? — In Mandalay.', options:['What','Where','When','Who'], answer:1 },
+  { level:1, q:'I ___ my homework last night.', options:['do','does','did','doing'], answer:2 },
+  { level:1, q:'We ___ a wonderful picnic last Sunday.', options:['have','has','had','having'], answer:2 },
+  { level:1, q:'She is ___ than her sister.', options:['tall','taller','tallest','more tall'], answer:1 },
+  { level:1, q:'___ you ever been to Bagan?', options:['Did','Have','Has','Do'], answer:1 },
+  { level:1, q:"There isn't ___ milk in the fridge.", options:['some','any','a','many'], answer:1 },
+  { level:1, q:'He ___ football with his friends every weekend.', options:['play','plays','playing','played'], answer:1 },
+  { level:1, q:'I ___ born in 2005.', options:['am','is','was','were'], answer:2 },
+  { level:1, q:'Look at the clouds! It ___ rain soon.', options:['will to','goes to','is going to','going to'], answer:2 },
+  { level:1, q:'She always ___ her teeth before bed.', options:['brush','brushes','brushing','brushed'], answer:1 },
+  { level:1, q:"I ___ eat fast food. It's unhealthy.", options:['usually','always','rarely','often'], answer:2 },
+  { level:1, q:'These shoes look nice. Can I ___ them on?', options:['try','wear','put','take'], answer:0 },
+  { level:1, q:'___ is your birthday? — In March.', options:['When','Where','What','Which'], answer:0 },
+  { level:1, q:'There were ___ people at the concert.', options:['much','many','a little','any'], answer:1 },
+
+  // ============ INTERMEDIATE ============
+  { level:2, q:'I have lived here ___ 2019.', options:['for','since','at','in'], answer:1 },
+  { level:2, q:'If it rains, we ___ at home.', options:['stay','stayed','will stay','staying'], answer:2 },
+  { level:2, q:'This book is ___ than that one.', options:['interesting','more interesting','most interesting','interestingly'], answer:1 },
+  { level:2, q:'He ___ his homework already.', options:['finish','finishes','has finished','finishing'], answer:2 },
+  { level:2, q:'I ___ studying when you called.', options:['am','was','were','be'], answer:1 },
+  { level:2, q:'She asked me where ___.', options:['do I live','I live','did I live','lives I'], answer:1 },
+  { level:2, q:"You ___ smoke inside the hospital.", options:["mustn't","don't",'should',"won't"], answer:0 },
+  { level:2, q:'The report ___ by the manager yesterday.', options:['wrote','was written','writes','is writing'], answer:1 },
+  { level:2, q:'I look forward ___ from you soon.', options:['hear','to hear','to hearing','hearing'], answer:2 },
+  { level:2, q:'If I ___ rich, I would travel the world.', options:['am','was','were','will be'], answer:2 },
+  { level:2, q:'The movie was ___ boring that I fell asleep.', options:['too','very','so','such'], answer:2 },
+  { level:2, q:'By the time we arrived, the meeting ___.', options:['already started','has already started','had already started','was starting'], answer:2 },
+  { level:2, q:"I'm not used to ___ early on weekends.", options:['get up','getting up','got up','gets up'], answer:1 },
+  { level:2, q:'The manager made the employees ___ overtime.', options:['work','to work','working','worked'], answer:0 },
+  { level:2, q:'We ___ each other for more than ten years.', options:['know','have known','knew','are knowing'], answer:1 },
+  { level:2, q:"I'll call you as soon as I ___ home.", options:['arrive','will arrive','arrived','arriving'], answer:0 },
+
+  // ============ ADVANCED ============
+  { level:3, q:'The letter ___ yesterday.', options:['sent','was sent','sends','is sending'], answer:1 },
+  { level:3, q:'___ the difficulty, she passed the exam.', options:['Although','Despite','However','Because'], answer:1 },
+  { level:3, q:'Hardly ___ the station when the train left.', options:['I had reached','had I reached','I reached','did I reach'], answer:1 },
+  { level:3, q:'Not only ___ late, but he also forgot the documents.', options:['he was','was he','he is','is he'], answer:1 },
+  { level:3, q:'The project ___ by next month.', options:['will complete','will be completed','completes','has completed'], answer:1 },
+  { level:3, q:'I wish I ___ harder when I was at school.', options:['studied','had studied','have studied','study'], answer:1 },
+  { level:3, q:'No sooner ___ the door than the phone rang.', options:['I closed','had I closed','I close','did I close'], answer:1 },
+  { level:3, q:'The manager insisted that the report ___ immediately.', options:['is submitted','be submitted','was submitted','submits'], answer:1 },
+  { level:3, q:'Seldom ___ such dedication and skill.', options:['we see','do we see','we saw','did we saw'], answer:1 },
+  { level:3, q:'He denied ___ the money from the drawer.', options:['take','to take','taking','took'], answer:2 },
+  { level:3, q:'___, the concert was cancelled due to the storm.', options:['Regrettably','Happily','Luckily','Fortunately'], answer:0 },
+  { level:3, q:'The new policy ___ considerable opposition when it was introduced.', options:['came up against','came across','came over','came up with'], answer:0 },
+  { level:3, q:'It is essential that every applicant ___ the form in full.', options:['complete','completes','completed','to complete'], answer:0 },
+  { level:3, q:"I'd rather you ___ me the truth yesterday.", options:['tell','had told','told','would tell'], answer:1 },
+  { level:3, q:'Only after the guests had left ___ the full extent of the damage.', options:['did we see','we saw','we see','had we seen'], answer:0 },
+  { level:3, q:'The findings were ___ significant that they changed the entire theory.', options:['so','such','too','enough'], answer:0 },
+];
+
+const RECO = [
+  { level:'Starter',
+    summary:'အခြေခံကနေ စတင်ရမှာဖြစ်ပေမဲ့ စိတ်မပူပါနဲ့ — ဘယ်သူမဆို လေ့လာသင်ယူနိုင်ပါတယ်!',
+    plan:[
+      '📖 Reading — အက္ခရာ၊ အခြေခံသဒ္ဒါနှင့် ရိုးရှင်းသော စာသားများ ဖတ်ရှုလေ့ကျင့်ခြင်း',
+      '✍️ Writing — စကားလုံးများနှင့် ရိုးရှင်းသော ဝါကျများ ရေးသားလေ့ကျင့်ခြင်း',
+      '🗣️ Speaking — နေ့စဉ်သုံး စကားလုံးများနှင့် အခြေခံ စကားပြောများ လေ့ကျင့်ခြင်း',
+      '🎧 Listening — အခြေခံ audio များ နားထောင်လေ့ကျင့်ခြင်း'
+    ],
+    note:'Starter အဆင့် ပြီးဆုံးပါက Elementary အဆင့်သို့ တက်ရောက်နိုင်ပါပြီ။' },
+  { level:'Elementary',
+    summary:'အခြေခံကို ကောင်းစွာ ပိုင်နိုင်ထားပါပြီ! ယခုအဆင့်ကို ခိုင်မာအောင်လုပ်ပြီး အဆင့်မြှင့်ကြပါစို့။',
+    plan:[
+      '📖 Reading — ရိုးရှင်းသော ပရာဂရပ်များနှင့် စာသားတိုများ နားလည်အောင် ဖတ်ရှုခြင်း',
+      '✍️ Writing — email နှင့် စာတိုများ ရေးသားနည်း လေ့ကျင့်ခြင်း',
+      '🗣️ Speaking — မိမိကိုယ်ကို မိတ်ဆက်ခြင်းနှင့် နေ့စဉ်သုံး စကားပြောများ လေ့ကျင့်ခြင်း',
+      '🎧 Listening — နေ့စဉ်သုံး စကားပြောများ နားထောင်နားလည်ခြင်း'
+    ],
+    note:'Elementary အဆင့် ပြီးဆုံးပါက Intermediate အဆင့်သို့ ဆက်လက်တက်ရောက်နိုင်ပါပြီ။' },
+  { level:'Intermediate',
+    summary:'ခိုင်မာသော အခြေခံရှိထားပါပြီ။ နောက်တစ်ဆင့် မြှင့်တင်ရန် အကောင်းဆုံးနေရာတွင် ရောက်ရှိနေပါပြီ။',
+    plan:[
+      '📖 Reading — အသေးစိတ် ဖတ်ရှုနားလည်ခြင်းနှင့် အဓိကအချက်များ ရှာဖွေခြင်း',
+      '✍️ Writing — essay နှင့် report ကဲ့သို့ စာသားပုံစံများ ရေးသားခြင်း',
+      '🗣️ Speaking — အကြောင်းအရာများ ဆွေးနွေးခြင်းနှင့် သဘောထား ထုတ်ဖော်ပြောဆိုခြင်း',
+      '🎧 Listening — Native speaker စကားပြောများနှင့် video/audio နားလည်ခြင်း'
+    ],
+    note:'Intermediate အဆင့် ပြီးဆုံးပါက Advanced အဆင့်သို့ တက်၍ Professional English ကို ဆက်လက်လေ့လာနိုင်ပါပြီ။' },
+  { level:'Advanced',
+    summary:'အလွန်ကောင်းမွန်ပါပြီ! သင်သည် Advanced အဆင့်သို့ ရောက်ရှိနေပါပြီ။ Professional အဆင့်သို့ မြှင့်တင်နိုင်ပါပြီ။',
+    plan:[
+      '📖 Reading — ရှုပ်ထွေးသော အကြောင်းအရာများနှင့် ပညာရပ်ဆိုင်ရာ စာသားများ ခွဲခြမ်းစိတ်ဖြာ ဖတ်ရှုခြင်း',
+      '✍️ Writing — Professional email၊ report နှင့် proposal များ ရေးသားခြင်း',
+      '🗣️ Speaking — Presentation၊ စေ့စပ်ညှိနှိုင်းမှုနှင့် အင်တာဗျူး ကျွမ်းကျင်မှုများ လေ့ကျင့်ခြင်း',
+      '🎧 Listening — ပညာရပ်ဆိုင်ရာ lecture များနှင့် business meeting များ နားလည်ခြင်း'
+    ],
+    note:'Advanced အဆင့် ပြီးဆုံးပါက Professional certification test များ ဖြေဆိုနိုင်ပါပြီ။' },
+];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQuiz() {
+  let picked = [];
+  for (let l = 0; l < 4; l++) {
+    const pool = BANK.filter(q => q.level === l);
+    picked = picked.concat(shuffle(pool).slice(0, PER));
+  }
+  return shuffle(picked).map(q => {
+    const order = shuffle([0,1,2,3]);
+    return {
+      level: q.level,
+      q: q.q,
+      options: order.map(i => q.options[i]),
+      answer: order.indexOf(q.answer),
+    };
+  });
+}
+
+let quiz = buildQuiz();
+let answers = new Array(quiz.length).fill(null);
+let current = 0;
+let submitted = false;
+let timedOut = false;
+const app = document.getElementById('app');
+
+// ===== မေးခွန်းတစ်ခုချင်း Timer =====
+let qTimerId = null;
+let qRemaining = 0;
+let timerForQuestion = -1;
+
+function startQuestionTimer() {
+  clearInterval(qTimerId);
+  qRemaining = QUESTION_SECONDS;
+  updateQTimerUI();
+  qTimerId = setInterval(() => {
+    qRemaining--;
+    updateQTimerUI();
+    if (qRemaining <= 0) {
+      clearInterval(qTimerId);
+      autoNext();
+    }
+  }, 1000);
+}
+
+function updateQTimerUI() {
+  const fill = document.getElementById('qTimerFill');
+  const num  = document.getElementById('qTimerText');
+  if (!fill || !num) return;
+
+  const pct = Math.max(0, (qRemaining / QUESTION_SECONDS) * 100);
+  fill.style.width = pct + '%';
+  num.textContent = qRemaining + 's';
+
+  const danger = qRemaining <= 5;
+  const warn   = !danger && qRemaining <= QUESTION_SECONDS * 0.5;
+
+  fill.classList.toggle('warn', warn);
+  fill.classList.toggle('danger', danger);
+  num.classList.toggle('warn', warn);
+  num.classList.toggle('danger', danger);
+}
+
+function autoNext() {
+  if (submitted) return;
+  if (current < quiz.length - 1) {
+    current++;
+    render();
+  } else {
+    submitted = true;
+    render();
+  }
+}
+
+function render() {
+  if (submitted) { clearInterval(qTimerId); renderResult(); return; }
+
+  const q = quiz[current];
+  const total = quiz.length;
+  const pct = (current / total) * 100;
+  const qPct = Math.max(0, (qRemaining / QUESTION_SECONDS) * 100);
+  const danger = qRemaining <= 5;
+  const warn   = !danger && qRemaining <= QUESTION_SECONDS * 0.5;
+
+  app.innerHTML = `
+    <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
+    <div class="q-meta">
+      <span>မေးခွန်း ${current+1} / ${total}</span>
+    </div>
+    <div class="q-timer-row">
+      <span class="q-timer-icon">⏱️</span>
+      <div class="q-timer-track">
+        <div class="q-timer-fill ${danger?'danger':warn?'warn':''}" id="qTimerFill" style="width:${qPct}%"></div>
+      </div>
+      <span class="q-timer-num ${danger?'danger':warn?'warn':''}" id="qTimerText">${qRemaining}s</span>
+    </div>
+    <div class="question">${q.q}</div>
+    <div class="options">
+      ${q.options.map((opt, i) => `
+        <button class="option ${answers[current]===i?'selected':''}"
+                onclick="choose(${i})" ${answers[current]!==null?'disabled':''}>${String.fromCharCode(65+i)}. ${opt}</button>
+      `).join('')}
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="prev()" ${current===0?'disabled':''}>← ယခင်မေးခွန်း</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="next()" ${answers[current]===null?'disabled':''}>
+        ${current===total-1 ? '✅ ရလဒ်ကြည့်ရန်' : 'နောက်မေးခွန်း →'}
+      </button>
+    </div>
+  `;
+
+  if (timerForQuestion !== current) {
+    timerForQuestion = current;
+    startQuestionTimer();
+  }
+}
+
+function choose(i) {
+  if (answers[current] !== null) return;
+  answers[current] = i;
+  const opts = document.querySelectorAll('.option');
+  opts.forEach((btn, idx) => {
+    btn.classList.toggle('selected', idx === i);
+    btn.disabled = true;
+  });
+  const nextBtn = document.getElementById('nextBtn');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function prev() {
+  if (current > 0) {
+    current--;
+    render();
+  }
+}
+
+function next() {
+  if (answers[current] === null) return;
+  if (current < quiz.length - 1) {
+    current++;
+    render();
+  } else {
+    submitted = true;
+    render();
+  }
+}
+
+function computeResult() {
+  const perLevel = [0,0,0,0];
+  quiz.forEach((q, idx) => { if (answers[idx]===q.answer) perLevel[q.level]++; });
+  let est = 0;
+  for (let l=0; l<4; l++) {
+    if (perLevel[l] >= PASS) est = l;
+    else break;
+  }
+  const answered = answers.filter(a => a!==null).length;
+  return { perLevel, est, answered };
+}
+
+function downloadTxt() {
+  const { perLevel, est, answered } = computeResult();
+  const reco = RECO[est];
+  const totalCorrect = perLevel.reduce((a,b)=>a+b,0);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+
+  let txt = `=== English Level Test Result ===\n`;
+  txt += `Date: ${dateStr}\n`;
+  txt += `Score: ${totalCorrect} / ${quiz.length}\n`;
+  txt += `Level: ${reco.level}\n\n`;
+  txt += `--- Scores by Level ---\n`;
+  LEVELS.forEach((l, i) => { txt += `${l}: ${perLevel[i]}/${PER}\n`; });
+  txt += `\n--- Recommended Learning Plan ---\n`;
+  reco.plan.forEach(p => { txt += `${p}\n`; });
+  txt += `\nNote: ${reco.note}\n\n`;
+  txt += `--- Answer Review ---\n`;
+  quiz.forEach((q, idx) => {
+    const userAns = answers[idx];
+    const isCorrect = userAns === q.answer;
+    const userText = userAns === null ? 'Not answered' : q.options[userAns];
+    const correctText = q.options[q.answer];
+    txt += `${idx+1}. ${q.q}\n`;
+    txt += `   Your answer: ${userText} ${isCorrect ? '(Correct)' : '(Wrong)'}\n`;
+    if (!isCorrect) txt += `   Correct answer: ${correctText}\n`;
+    txt += `\n`;
+  });
+
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `English_Level_Test_Result_${dateStr.replace(/ /g, '_')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function renderResult() {
+  clearInterval(qTimerId);
+
+  const { perLevel, est, answered } = computeResult();
+  const reco = RECO[est];
+  const totalCorrect = perLevel.reduce((a,b)=>a+b,0);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+  const timeStr = now.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+
+  const timeoutNote = timedOut
+    ? `<div class="note" style="background:#fef2f2;color:#b91c1c;border-color:#fecaca;">⏰ အချိန်ကုန်သွားပါပြီ — ဖြေဆိုပြီးသော အဖြေများဖြင့် ရလဒ်ကို တွက်ချက်ပေးထားပါတယ်။</div>`
+    : '';
+
+  app.innerHTML = `
+    ${timeoutNote}
+
+    <!-- ======== LUXURIOUS RESULT CARD ======== -->
+    <div class="lux-wrap">
+      <div class="lux-frame">
+        <div class="lux-inner">
+          <div class="lux-ornament-top">✦ ❖ ✦</div>
+          <span class="level-label">🎯 သင့် English Level</span>
+          <div class="badge-lux">${reco.level}</div>
+          <div class="lux-divider">❖</div>
+          <p class="lux-summary">${reco.summary}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== SCORE GRID ======== -->
+    <div class="score-grid">
+      ${perLevel.map((s, i) => `
+        <div class="score-box">
+          <b>${s}/${PER}</b>
+          <span>${LEVELS[i]}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- ======== RECOMMENDATION ======== -->
+    <div class="reco">
+      <h3>📚 သင့်အတွက် အကြံပြုချက်</h3>
+      <ul>${reco.plan.map(p => `<li>${p}</li>`).join('')}</ul>
+    </div>
+    <div class="note">${reco.note}</div>
+
+    <!-- ======== ACTION BUTTONS ======== -->
+    <div class="center">
+      <button class="btn btn-pdf" onclick="window.print()">📄 PDF ရယူရန် (Print)</button>
+      <button class="btn btn-txt" onclick="downloadTxt()">📥 Text ဖိုင်ဒေါင်းလုဒ်</button>
+      <button class="btn btn-primary" onclick="location.reload()">🔄 ထပ်မံစမ်းသပ်</button>
+      <div class="print-hint">* PDF ရယူရန် Print Dialog တွင် "Save as PDF" ကို ရွေးချယ်ပါ။</div>
+    </div>
+
+    <!-- ======== ANSWER REVIEW ======== -->
+    <div class="review">
+      <h3>📋 အဖြေများ ပြန်လည်စစ်ဆေးခြင်း</h3>
+      ${quiz.map((q, idx) => {
+        const userAns = answers[idx];
+        const isCorrect = userAns === q.answer;
+        const userText = userAns === null ? '— မဖြေဆိုပါ —' : q.options[userAns];
+        const correctText = q.options[q.answer];
+        return `
+          <div class="rev-item">
+            <div><b>${idx+1}.</b> ${q.q}</div>
+            <div class="ans-line">
+              သင့်အဖြေ: <span class="${isCorrect?'ok':'bad'}">${userText}</span>
+              ${!isCorrect ? ` · အဖြေမှန်: <span class="ok">${correctText}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+
+  // ===== Print sheet =====
+  const printSheet = document.getElementById('printSheet');
+  printSheet.innerHTML = `
+    <div class="ps-header">
+      <h1>English Level Test Result</h1>
+      <div class="ps-sub">Tomorrow's Golden Generation</div>
+    </div>
+    <div class="ps-row">
+      <span><b>Date:</b> ${dateStr}</span>
+      <span><b>Time:</b> ${timeStr}</span>
+    </div>
+    <div class="ps-row">
+      <span><b>Score:</b> ${totalCorrect} / ${quiz.length}</span>
+      <span><b>Answered:</b> ${answered} / ${quiz.length}</span>
+    </div>
+    <div class="ps-badge"><span class="b">✦ ${reco.level} ✦</span></div>
+    <table class="ps-scores">
+      <tr><th>Level</th>${LEVELS.map(l=>`<th>${l}</th>`).join('')}</tr>
+      <tr><td>Score</td>${perLevel.map(s=>`<td>${s}/${PER}</td>`).join('')}</tr>
+    </table>
+    <div class="ps-reco">
+      <h2>📚 Recommended Learning Plan</h2>
+      <ul>${reco.plan.map(p => `<li>${p}</li>`).join('')}</ul>
+    </div>
+    <div class="ps-note">${reco.note}</div>
+    <div class="ps-footer">Tomorrow's Golden Generation · English Level Test · ${dateStr}</div>
+  `;
+}
+
+// ===== စတင် =====
+render();
+</script>
+</body>
+</html>

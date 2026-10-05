@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Level Test — Tomorrow's Golden Generation</title>
+<title>Tomorrow's Golden Generation — English Level Test</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   :root {
@@ -14,14 +14,188 @@
   body { font-family:'Myanmar Text','Pyidaungsu','Padauk','Segoe UI',sans-serif;
          background:linear-gradient(135deg,#b8860b,#d4a017); min-height:100vh;
          display:flex; align-items:center; justify-content:center; padding:24px; color:var(--dark); }
-  .card { background:#fff; border-radius:20px; max-width:640px; width:100%;
+  .card { background:#fff; border-radius:20px; max-width:720px; width:100%;
           box-shadow:0 20px 60px rgba(0,0,0,.25); overflow:hidden; }
   .card-header { background:linear-gradient(135deg,#b8860b,#d4a017); color:#fff; padding:24px 32px;
                  display:flex; justify-content:space-between; align-items:center; gap:16px; }
   .card-header h1 { font-size:1.4rem; margin-bottom:4px; }
-  .card-header p { opacity:.92; font-size:.88rem; line-height:1.6; }
 
   .card-body { padding:32px; }
+
+  /* ===== HOME PAGE ===== */
+  .home-hero {
+    text-align:center;
+    padding: 32px 16px 28px;
+    background: linear-gradient(180deg, #fffef9, #fdf8ec);
+    border-radius: 20px;
+    border: 2px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212,175,55,.35);
+    border-radius: 14px;
+    pointer-events: none;
+  }
+  .home-ornament {
+    font-family: Georgia, serif;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+    opacity: .85;
+  }
+  .home-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #8b6f47, #d4af37, #f5e6a8, #d4af37, #8b6f47);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .home-subtitle {
+    font-size: 1rem;
+    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .home-sub2 {
+    font-size: .88rem;
+    color: var(--gray);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== LEVEL COMPARISON TABLE ===== */
+  .compare-title {
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--gold-dark);
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .compare-sub {
+    text-align: center;
+    font-size: .82rem;
+    color: var(--gray);
+    margin-bottom: 18px;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(184,134,11,.12);
+    border: 1.5px solid rgba(212,175,55,.5);
+    margin-bottom: 24px;
+  }
+  .compare-table thead th {
+    background: linear-gradient(135deg, #8b6f47, #d4af37);
+    color: #fff;
+    font-family: Georgia, serif;
+    font-size: .82rem;
+    letter-spacing: 1px;
+    padding: 12px 6px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .compare-table tbody td {
+    padding: 12px 6px;
+    text-align: center;
+    font-size: .88rem;
+    border-top: 1px solid rgba(212,175,55,.25);
+    background: #fffefb;
+  }
+  .compare-table tbody tr:nth-child(even) td {
+    background: #fdf8ec;
+  }
+  .compare-table tbody td:first-child {
+    font-weight: 700;
+    color: var(--gold-dark);
+    font-family: Georgia, serif;
+    letter-spacing: .5px;
+  }
+  .compare-table tbody td:nth-child(2) {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .tgg-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, #d4af37, #f5e6a8);
+    color: #5a4a2f;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .5px;
+  }
+
+  /* ===== START BUTTON ===== */
+  .start-wrap {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 56px;
+    background: linear-gradient(135deg, #8b6f47 0%, #d4af37 30%, #f5e6a8 50%, #d4af37 70%, #8b6f47 100%);
+    color: #fffef9;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 3px solid #fff;
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow:
+      0 15px 35px rgba(184,134,11,.5),
+      inset 0 2px 5px rgba(255,255,255,.6),
+      inset 0 -3px 8px rgba(0,0,0,.2);
+    text-shadow: 1px 2px 6px rgba(0,0,0,.35);
+    position: relative;
+  }
+  .btn-start:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      0 22px 45px rgba(184,134,11,.65),
+      inset 0 2px 5px rgba(255,255,255,.7),
+      inset 0 -3px 8px rgba(0,0,0,.25);
+  }
+  .btn-start:active {
+    transform: translateY(0) scale(1);
+  }
+  .start-note {
+    margin-top: 16px;
+    font-size: .82rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+  .start-note b { color: var(--gold-dark); }
+
+  /* ===== QUIZ ===== */
   .progress-wrap { background:#f1f5f9; border-radius:20px; height:10px; margin-bottom:26px; overflow:hidden; }
   .progress-bar { height:100%; background:linear-gradient(90deg,var(--primary),#f0c75e); width:0%;
                   transition:width .35s ease; border-radius:20px; }
@@ -47,9 +221,7 @@
   .btn-txt { background:#059669; color:#fff; }
   .btn-txt:hover { background:#047857; }
 
-  /* =============================================================
-     ============  LUXURIOUS RESULT PAGE  =========================
-     ============================================================= */
+  /* ===== LUXURIOUS RESULT ===== */
   .lux-wrap {
     background: linear-gradient(180deg, #fefcf5 0%, #fdf8ec 100%);
     border-radius: 24px;
@@ -72,174 +244,81 @@
     border-radius: 12px;
     pointer-events: none;
   }
-  .lux-inner {
-    padding: 36px 24px 30px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
+  .lux-inner { padding: 36px 24px 30px; text-align: center; position: relative; z-index: 1; }
   .lux-ornament-top {
-    font-family: Georgia, serif;
-    color: var(--gold);
-    font-size: 1.4rem;
-    letter-spacing: 12px;
-    margin-bottom: 14px;
-    opacity: .8;
+    font-family: Georgia, serif; color: var(--gold);
+    font-size: 1.4rem; letter-spacing: 12px; margin-bottom: 14px; opacity: .8;
   }
   .level-label {
-    display: block;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 0.82rem;
-    color: var(--gold-dark);
-    letter-spacing: 5px;
-    margin-bottom: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
+    display: block; font-family: Georgia, serif;
+    font-size: 0.82rem; color: var(--gold-dark);
+    letter-spacing: 5px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase;
   }
   .badge-lux {
-    display: inline-block;
-    position: relative;
+    display: inline-block; position: relative;
     background: linear-gradient(135deg, #8b6f47 0%, #d4af37 25%, #f5e6a8 50%, #d4af37 75%, #8b6f47 100%);
-    color: #fffef9;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 3.2rem;
-    font-weight: 900;
-    padding: 26px 72px;
-    border-radius: 10px;
-    margin-bottom: 22px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    box-shadow:
-      0 18px 45px rgba(184,134,11,.55),
-      0 6px 15px rgba(184,134,11,.35),
-      inset 0 2px 6px rgba(255,255,255,.6),
-      inset 0 -3px 8px rgba(0,0,0,.25);
-    border: 3px solid #fff;
-    outline: 1px solid var(--gold);
-    outline-offset: 5px;
-    text-shadow: 2px 3px 10px rgba(0,0,0,.35);
-    line-height: 1.2;
+    color: #fffef9; font-family: Georgia, serif;
+    font-size: 3.2rem; font-weight: 900;
+    padding: 26px 72px; border-radius: 10px; margin-bottom: 22px;
+    letter-spacing: 6px; text-transform: uppercase;
+    box-shadow: 0 18px 45px rgba(184,134,11,.55), 0 6px 15px rgba(184,134,11,.35),
+      inset 0 2px 6px rgba(255,255,255,.6), inset 0 -3px 8px rgba(0,0,0,.25);
+    border: 3px solid #fff; outline: 1px solid var(--gold); outline-offset: 5px;
+    text-shadow: 2px 3px 10px rgba(0,0,0,.35); line-height: 1.2;
   }
   .badge-lux::before, .badge-lux::after {
-    content: '✦';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.3rem;
-    color: rgba(255,255,255,.85);
-    text-shadow: 0 0 8px rgba(255,255,255,.6);
+    content: '✦'; position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 1.3rem; color: rgba(255,255,255,.85); text-shadow: 0 0 8px rgba(255,255,255,.6);
   }
   .badge-lux::before { left: 22px; }
   .badge-lux::after  { right: 22px; }
-
   .lux-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: var(--gold);
-    margin: 4px 0 22px;
-    font-size: .9rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; color: var(--gold); margin: 4px 0 22px; font-size: .9rem;
   }
   .lux-divider::before, .lux-divider::after {
-    content: '';
-    height: 1px;
-    width: 60px;
+    content: ''; height: 1px; width: 60px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
   .lux-summary {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.02rem;
-    color: #5a4a2f;
-    line-height: 1.85;
-    max-width: 480px;
-    margin: 0 auto;
-    font-style: italic;
+    font-family: Georgia, serif; font-size: 1.02rem; color: #5a4a2f;
+    line-height: 1.85; max-width: 480px; margin: 0 auto; font-style: italic;
   }
-
-  .score-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 26px 0;
-  }
+  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 26px 0; }
   .score-box {
     background: linear-gradient(180deg, #fffef9, #fdf6e3);
-    border-radius: 14px;
-    padding: 18px 8px;
-    text-align: center;
+    border-radius: 14px; padding: 18px 8px; text-align: center;
     border: 1.5px solid rgba(212,175,55,.5);
     box-shadow: 0 6px 16px rgba(184,134,11,.1), inset 0 1px 0 rgba(255,255,255,.8);
-    transition: transform .2s;
   }
-  .score-box b {
-    display: block;
-    font-family: Georgia, serif;
-    font-size: 1.45rem;
-    color: var(--gold-dark);
-    margin-bottom: 4px;
-    font-weight: 800;
-  }
-  .score-box span {
-    font-size: .78rem;
-    color: #8b6f47;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
+  .score-box b { display: block; font-family: Georgia, serif; font-size: 1.45rem;
+                 color: var(--gold-dark); margin-bottom: 4px; font-weight: 800; }
+  .score-box span { font-size: .78rem; color: #8b6f47; letter-spacing: 1px;
+                    text-transform: uppercase; font-weight: 600; }
   .reco {
     background: linear-gradient(180deg, #fdfaf1, #fbf5e6);
-    border-left: 4px solid var(--gold);
-    border-radius: 12px;
-    padding: 22px 24px;
-    margin-bottom: 16px;
+    border-left: 4px solid var(--gold); border-radius: 12px;
+    padding: 22px 24px; margin-bottom: 16px;
     box-shadow: 0 6px 20px rgba(184,134,11,.08);
   }
-  .reco h3 {
-    font-family: Georgia, serif;
-    font-size: 1.15rem;
-    color: var(--gold-dark);
-    margin-bottom: 14px;
-    letter-spacing: 1px;
-  }
+  .reco h3 { font-family: Georgia, serif; font-size: 1.15rem;
+             color: var(--gold-dark); margin-bottom: 14px; letter-spacing: 1px; }
   .reco ul { margin-left: 4px; color: #4a3d24; list-style: none; }
-  .reco li {
-    margin-bottom: 10px;
-    line-height: 1.75;
-    padding-left: 4px;
-    font-size: .96rem;
-  }
-
+  .reco li { margin-bottom: 10px; line-height: 1.75; padding-left: 4px; font-size: .96rem; }
   .note {
     background: linear-gradient(180deg, #fdfaf1, #fbf5e6);
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-size: .92rem;
-    color: #6b5940;
-    margin-bottom: 22px;
-    line-height: 1.8;
-    border: 1px dashed rgba(212,175,55,.5);
-    font-style: italic;
+    border-radius: 10px; padding: 16px 20px; font-size: .92rem;
+    color: #6b5940; margin-bottom: 22px; line-height: 1.8;
+    border: 1px dashed rgba(212,175,55,.5); font-style: italic;
   }
-
   .center { text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; align-items:center; }
   .print-hint { font-size:0.8rem; color:#b91c1c; margin-top:8px; width:100%; }
-
   .review { margin-top:10px; }
-  .review h3 {
-    font-family: Georgia, serif;
-    margin-bottom: 14px;
-    color: var(--gold-dark);
-    letter-spacing: 1px;
-  }
+  .review h3 { font-family: Georgia, serif; margin-bottom: 14px;
+               color: var(--gold-dark); letter-spacing: 1px; }
   .rev-item {
-    border:1px solid rgba(212,175,55,.35);
-    border-radius:10px;
-    padding:12px 16px;
-    margin-bottom:10px;
-    font-size:.95rem;
+    border:1px solid rgba(212,175,55,.35); border-radius:10px;
+    padding:12px 16px; margin-bottom:10px; font-size:.95rem;
     background: linear-gradient(180deg, #fffefb, #fdfaf1);
   }
   .rev-item .ans-line { color:var(--gray); margin-top:4px; }
@@ -261,7 +340,7 @@
   .q-timer-num.danger { color:#dc2626; animation:pulse 1s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.65;} }
 
-  /* ===== PDF (print) sheet ===== */
+  /* ===== PRINT ===== */
   .print-sheet { display:none; }
   @media print {
     @page { margin: 1.5cm; }
@@ -288,13 +367,17 @@
   .ps-footer { margin-top:34px; border-top:1px solid #cbd5e1; padding-top:12px; font-size:9.5pt; color:#64748b; text-align:center; }
 
   @media (max-width:560px) {
-    .card-body { padding:22px; }
+    .card-body { padding:20px; }
     .score-grid { grid-template-columns:repeat(2,1fr); }
     .question { font-size:1.1rem; }
     .card-header { flex-direction:column; align-items:flex-start; }
     .badge-lux { font-size:2.2rem; padding:20px 44px; letter-spacing:4px; }
     .badge-lux::before { left: 12px; font-size: 1rem; }
     .badge-lux::after  { right: 12px; font-size: 1rem; }
+    .home-title { font-size: 1.5rem; }
+    .btn-start { padding: 16px 40px; font-size: 1rem; }
+    .compare-table { font-size: .8rem; }
+    .compare-table thead th, .compare-table tbody td { padding: 9px 4px; font-size: .75rem; }
   }
 </style>
 </head>
@@ -309,14 +392,14 @@
   <div class="card-body" id="app"></div>
 </div>
 
-<!-- Print/PDF-only sheet (populated at result time) -->
+<!-- Print/PDF-only sheet -->
 <div class="print-sheet" id="printSheet"></div>
 
 <script>
 const LEVELS = ['Starter','Elementary','Intermediate','Advanced'];
 const PER = 12;
 const PASS = 6;
-const QUESTION_SECONDS = 30;      // ⬅️ မေးခွန်းတစ်ခုလျှင် စက္ကန့်
+const QUESTION_SECONDS = 30;
 
 const BANK = [
   // ============ STARTER ============
@@ -457,11 +540,12 @@ function buildQuiz() {
   });
 }
 
-let quiz = buildQuiz();
-let answers = new Array(quiz.length).fill(null);
+let quiz = [];
+let answers = [];
 let current = 0;
 let submitted = false;
 let timedOut = false;
+let currentScreen = 'home'; // 'home' | 'quiz'
 const app = document.getElementById('app');
 
 // ===== မေးခွန်းတစ်ခုချင်း Timer =====
@@ -505,14 +589,87 @@ function autoNext() {
   if (submitted) return;
   if (current < quiz.length - 1) {
     current++;
-    render();
+    renderQuiz();
   } else {
     submitted = true;
-    render();
+    renderQuiz();
   }
 }
 
-function render() {
+// ================ HOME PAGE ================
+function renderHome() {
+  currentScreen = 'home';
+  clearInterval(qTimerId);
+  app.innerHTML = `
+    <div class="home-hero">
+      <div class="home-ornament">✦ ❖ ✦</div>
+      <h1 class="home-title">Tomorrow's Golden Generation</h1>
+      <p class="home-subtitle">ENGLISH LEVEL TEST</p>
+      <p class="home-sub2">သင့် English အဆင့်ကို သိရှိရန် စမ်းသပ်ပါ</p>
+    </div>
+
+    <h2 class="compare-title">🌍 နိုင်ငံတကာ အဆင့်သတ်မှတ်ချက်များနှင့် ယှဉ်ပြခြင်း</h2>
+    <p class="compare-sub">CEFR · IELTS · TOEFL iBT စံနှုန်းများနှင့် နှိုင်းယှဉ်ချက်</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>TGG Level</th>
+          <th>CEFR</th>
+          <th>IELTS</th>
+          <th>TOEFL iBT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tgg-badge">Starter</span></td>
+          <td>A1</td>
+          <td>1.0 – 2.5</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="tgg-badge">Elementary</span></td>
+          <td>A2</td>
+          <td>3.0 – 4.0</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><span class="tgg-badge">Intermediate</span></td>
+          <td>B1 – B2</td>
+          <td>4.5 – 6.0</td>
+          <td>42 – 94</td>
+        </tr>
+        <tr>
+          <td><span class="tgg-badge">Advanced</span></td>
+          <td>C1 – C2</td>
+          <td>6.5 – 9.0</td>
+          <td>95 – 120</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="start-wrap">
+      <button class="btn-start" onclick="startQuiz()">🚀 စတင်မည်</button>
+      <p class="start-note">
+        📌 မေးခွန်း <b>48</b> ခု · မေးခွန်းတစ်ခုလျှင် <b>${QUESTION_SECONDS}</b> စက္ကန့်
+      </p>
+    </div>
+  `;
+}
+
+function startQuiz() {
+  quiz = buildQuiz();
+  answers = new Array(quiz.length).fill(null);
+  current = 0;
+  submitted = false;
+  timedOut = false;
+  timerForQuestion = -1;
+  currentScreen = 'quiz';
+  renderQuiz();
+}
+
+// ================ QUIZ ================
+function renderQuiz() {
   if (submitted) { clearInterval(qTimerId); renderResult(); return; }
 
   const q = quiz[current];
@@ -570,7 +727,7 @@ function choose(i) {
 function prev() {
   if (current > 0) {
     current--;
-    render();
+    renderQuiz();
   }
 }
 
@@ -578,10 +735,10 @@ function next() {
   if (answers[current] === null) return;
   if (current < quiz.length - 1) {
     current++;
-    render();
+    renderQuiz();
   } else {
     submitted = true;
-    render();
+    renderQuiz();
   }
 }
 
@@ -605,6 +762,7 @@ function downloadTxt() {
   const dateStr = now.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
 
   let txt = `=== English Level Test Result ===\n`;
+  txt += `Organisation: Tomorrow's Golden Generation\n`;
   txt += `Date: ${dateStr}\n`;
   txt += `Score: ${totalCorrect} / ${quiz.length}\n`;
   txt += `Level: ${reco.level}\n\n`;
@@ -636,6 +794,7 @@ function downloadTxt() {
   URL.revokeObjectURL(url);
 }
 
+// ================ RESULT ================
 function renderResult() {
   clearInterval(qTimerId);
 
@@ -653,7 +812,6 @@ function renderResult() {
   app.innerHTML = `
     ${timeoutNote}
 
-    <!-- ======== LUXURIOUS RESULT CARD ======== -->
     <div class="lux-wrap">
       <div class="lux-frame">
         <div class="lux-inner">
@@ -666,7 +824,6 @@ function renderResult() {
       </div>
     </div>
 
-    <!-- ======== SCORE GRID ======== -->
     <div class="score-grid">
       ${perLevel.map((s, i) => `
         <div class="score-box">
@@ -676,14 +833,12 @@ function renderResult() {
       `).join('')}
     </div>
 
-    <!-- ======== RECOMMENDATION ======== -->
     <div class="reco">
       <h3>📚 သင့်အတွက် အကြံပြုချက်</h3>
       <ul>${reco.plan.map(p => `<li>${p}</li>`).join('')}</ul>
     </div>
     <div class="note">${reco.note}</div>
 
-    <!-- ======== ACTION BUTTONS ======== -->
     <div class="center">
       <button class="btn btn-pdf" onclick="window.print()">📄 PDF ရယူရန် (Print)</button>
       <button class="btn btn-txt" onclick="downloadTxt()">📥 Text ဖိုင်ဒေါင်းလုဒ်</button>
@@ -691,7 +846,6 @@ function renderResult() {
       <div class="print-hint">* PDF ရယူရန် Print Dialog တွင် "Save as PDF" ကို ရွေးချယ်ပါ။</div>
     </div>
 
-    <!-- ======== ANSWER REVIEW ======== -->
     <div class="review">
       <h3>📋 အဖြေများ ပြန်လည်စစ်ဆေးခြင်း</h3>
       ${quiz.map((q, idx) => {
@@ -712,7 +866,6 @@ function renderResult() {
     </div>
   `;
 
-  // ===== Print sheet =====
   const printSheet = document.getElementById('printSheet');
   printSheet.innerHTML = `
     <div class="ps-header">
@@ -741,8 +894,8 @@ function renderResult() {
   `;
 }
 
-// ===== စတင် =====
-render();
+// ===== စတင် — Home Page ကို အရင်ပြပါ =====
+renderHome();
 </script>
 </body>
 </html>
